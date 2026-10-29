@@ -18,7 +18,7 @@
         body {
             margin: 0; padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
+            background-color: #000; /* Черный фон для полей вокруг картинок */
             color: var(--text-color);
             overflow-x: hidden;
         }
@@ -39,9 +39,18 @@
             flex: 0 0 100vw;
             scroll-snap-align: start;
             position: relative;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000; /* Черный фон */
+        }
+
+        /* Картинки теперь вписываются целиком, без обрезки */
+        .slide img.slide-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Вписывает картинку целиком */
+            display: block;
         }
 
         /* Наложение QR-кода на 5-й слайд */
@@ -169,82 +178,37 @@
         .fab-contact:active { transform: scale(0.9); }
 
         .contact-modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.6);
-            z-index: 30;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s;
+            z-index: 30; display: none; opacity: 0; transition: opacity 0.3s;
         }
-        .contact-modal-overlay.active {
-            display: block;
-            opacity: 1;
-        }
+        .contact-modal-overlay.active { display: block; opacity: 1; }
 
         .contact-modal {
-            position: fixed;
-            bottom: -100%;
-            left: 0; right: 0;
-            background: var(--bg-color);
-            border-radius: 20px 20px 0 0;
-            padding: 20px;
-            z-index: 31;
-            transition: bottom 0.3s ease-out;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
-            max-height: 80vh;
-            overflow-y: auto;
+            position: fixed; bottom: -100%; left: 0; right: 0;
+            background: var(--bg-color); border-radius: 20px 20px 0 0;
+            padding: 20px; z-index: 31; transition: bottom 0.3s ease-out;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5); max-height: 80vh; overflow-y: auto;
         }
-        .contact-modal.active {
-            bottom: 0;
-        }
+        .contact-modal.active { bottom: 0; }
         
-        .contact-modal h3 {
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: #fff;
-        }
+        .contact-modal h3 { text-align: center; margin-top: 0; margin-bottom: 20px; color: #fff; }
 
-        /* Список контактов */
         .contact-item {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            background: var(--card-bg); border-radius: 12px; padding: 15px;
+            margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px;
         }
         
         .contact-number {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--text-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 18px; font-weight: bold; color: var(--text-color);
+            text-decoration: none; display: flex; align-items: center; gap: 10px;
         }
-        .contact-number:hover { color: var(--accent-color); }
-
-        .contact-actions {
-            display: flex;
-            gap: 10px;
-        }
+        .contact-actions { display: flex; gap: 10px; }
 
         .action-btn {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 18px;
-            text-decoration: none;
-            background: #444;
-            color: white;
-            transition: opacity 0.2s;
+            flex: 1; display: flex; justify-content: center; align-items: center;
+            padding: 10px; border-radius: 8px; font-size: 18px;
+            text-decoration: none; background: #444; color: white; transition: opacity 0.2s;
         }
         .action-btn:active { opacity: 0.7; }
         
@@ -254,28 +218,23 @@
         .action-btn.call { background-color: var(--accent-color); color: #000; }
 
         .contact-close {
-            width: 100%;
-            padding: 15px;
-            margin-top: 10px;
-            background: transparent;
-            border: none;
-            color: #888;
-            font-size: 16px;
-            cursor: pointer;
+            width: 100%; padding: 15px; margin-top: 10px;
+            background: transparent; border: none; color: #888; font-size: 16px; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
     <div class="slider-container" id="slider">
-        <!-- Используем имена 1.jpg - 5.jpg -->
-        <div class="slide" style="background-image: url('1.jpg');"></div>
-        <div class="slide" style="background-image: url('2.jpg');"></div>
-        <div class="slide" style="background-image: url('3.jpg');"></div>
-        <div class="slide" style="background-image: url('4.jpg');"></div>
+        <!-- Слайды 1-4 (теперь через тег img) -->
+        <div class="slide"><img src="1.jpg" class="slide-image" alt="Слайд 1"></div>
+        <div class="slide"><img src="2.jpg" class="slide-image" alt="Слайд 2"></div>
+        <div class="slide"><img src="3.jpg" class="slide-image" alt="Слайд 3"></div>
+        <div class="slide"><img src="4.jpg" class="slide-image" alt="Слайд 4"></div>
         
         <!-- Слайд 5 (Критерии + QR-код) -->
-        <div class="slide" style="background-image: url('5.jpg');">
+        <div class="slide">
+            <img src="5.jpg" class="slide-image" alt="Слайд 5">
             <a href="https://t.me/OUGUFSINOK_BOT" target="_blank" class="qr-overlay">
                 <img src="qr.png" alt="QR код бота">
             </a>
@@ -320,8 +279,6 @@
                         <option value="В/Г/Д">В, Г или Д</option>
                     </select>
                 </div>
-                
-                <!-- НОВЫЙ ВОПРОС: Служба в ВС -->
                 <div class="form-group">
                     <label>Служба в Вооруженных силах</label>
                     <select id="military" required>
@@ -343,7 +300,6 @@
 
     <div class="nav-hint" id="navHint">← Свайпните влево →</div>
 
-    <!-- Плавающая кнопка связи -->
     <div class="fab-contact" id="fabContact">📞</div>
 
     <!-- Модальное окно контактов -->
@@ -351,21 +307,15 @@
     <div class="contact-modal" id="contactModal">
         <h3>Связаться с нами</h3>
         
-        <!-- Городской номер -->
         <div class="contact-item">
-            <a href="tel:+74232305443" class="contact-number">
-                📞 +7 (423) 230-54-43
-            </a>
+            <a href="tel:+74232305443" class="contact-number">📞 +7 (423) 230-54-43</a>
             <div class="contact-actions">
                 <a href="tel:+74232305443" class="action-btn call">Позвонить</a>
             </div>
         </div>
 
-        <!-- Мобильный номер 1 -->
         <div class="contact-item">
-            <a href="tel:+79140729179" class="contact-number">
-                📱 +7 (914) 072-91-79
-            </a>
+            <a href="tel:+79140729179" class="contact-number">📱 +7 (914) 072-91-79</a>
             <div class="contact-actions">
                 <a href="tel:+79140729179" class="action-btn call" title="Позвонить">📞</a>
                 <a href="https://t.me/+79140729179" target="_blank" class="action-btn tg" title="Telegram">✈️</a>
@@ -374,11 +324,8 @@
             </div>
         </div>
 
-        <!-- Мобильный номер 2 -->
         <div class="contact-item">
-            <a href="tel:+79996179381" class="contact-number">
-                📱 +7 (999) 617-93-81
-            </a>
+            <a href="tel:+79996179381" class="contact-number">📱 +7 (999) 617-93-81</a>
             <div class="contact-actions">
                 <a href="tel:+79996179381" class="action-btn call" title="Позвонить">📞</a>
                 <a href="https://t.me/+79996179381" target="_blank" class="action-btn tg" title="Telegram">✈️</a>
@@ -386,7 +333,6 @@
                 <a href="https://max.ru/u/79996179381" target="_blank" class="action-btn max" title="МАКС">🟣</a>
             </div>
         </div>
-
         <button class="contact-close" id="closeContactBtn">Закрыть</button>
     </div>
 
@@ -399,25 +345,17 @@
         const navHint = document.getElementById('navHint');
         const mainButton = tg.MainButton;
         
-        // --- Логика модального окна контактов ---
         const fab = document.getElementById('fabContact');
         const modal = document.getElementById('contactModal');
         const overlay = document.getElementById('modalOverlay');
         const closeBtn = document.getElementById('closeContactBtn');
 
-        function openModal() {
-            modal.classList.add('active');
-            overlay.classList.add('active');
-        }
-        function closeModal() {
-            modal.classList.remove('active');
-            overlay.classList.remove('active');
-        }
+        function openModal() { modal.classList.add('active'); overlay.classList.add('active'); }
+        function closeModal() { modal.classList.remove('active'); overlay.classList.remove('active'); }
         fab.addEventListener('click', openModal);
         overlay.addEventListener('click', closeModal);
         closeBtn.addEventListener('click', closeModal);
 
-        // --- Логика слайдера ---
         slider.addEventListener('scroll', () => {
             navHint.style.display = 'none';
             const slideWidth = window.innerWidth;
@@ -432,13 +370,10 @@
                     });
                 }
             } else {
-                if (mainButton.isVisible) {
-                    mainButton.hide();
-                }
+                if (mainButton.isVisible) { mainButton.hide(); }
             }
         });
 
-        // --- Отправка формы ---
         document.getElementById('surveyForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const data = {
@@ -447,13 +382,12 @@
                 age: document.getElementById('age').value,
                 education: document.getElementById('education').value,
                 health: document.getElementById('health').value,
-                military: document.getElementById('military').value // Добавлено поле
+                military: document.getElementById('military').value
             };
             tg.sendData(JSON.stringify(data));
             tg.close();
         });
 
-        // Открытие внешних ссылок и звонилки внутри Telegram
         document.querySelectorAll('a[href^="http"], a[href^="tel:"]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
